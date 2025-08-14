@@ -7,7 +7,7 @@ provider "aws"{
 # Key Pair
 resource "aws_key_pair" "my_key" {
   key_name   = "terra-key-ec2"
-  public_key = file("terra-key-ec2.pub")
+  public_key = file("terra-key-ec2.pub")   #you need to generate the ssh key first
 }
 
 # Default VPC
