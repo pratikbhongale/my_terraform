@@ -2,6 +2,10 @@ provider "aws"{
     region = "ap-south-1"
 
 }
+resource "random_id" "rand_id" {
+    byte_length = 8
+  
+}
 
 
 # Key Pair
@@ -18,6 +22,14 @@ resource "aws_security_group" "my_sg" {
   name        = "terraform-sg"
   description = "Terraform generated Security Group"
   vpc_id      = aws_default_vpc.my_vpc.id
+resource  "aws_s3_bucket" "Pratik_Bucket" {
+    bucket = "dm-the-bucket-${random_id.rand_id.hex}"
+}
+resource "aws_s3_object" "text_file" {
+    bucket = aws_s3_bucket.Pratik_Bucket.bucket
+    source = "./hello.txt"
+    key = "mydata.txt"
+}
 
   ingress {
     from_port   = 22
